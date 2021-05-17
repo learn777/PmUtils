@@ -120,7 +120,7 @@ public class ExoPlayerUtils {
         View view = LayoutInflater.from(context).inflate(R.layout.layout_player, null);
         PlayerView playerView = view.findViewById(R.id.playerView);
         playerView.setPlayer(exoPlayer);
-        layer.addView(view);
+        layer.addView(playerView);
     }
 
 }
