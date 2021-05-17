@@ -113,7 +113,7 @@ public class ExoPlayerUtils {
         }
         View view = LayoutInflater.from(context).inflate(R.layout.layout_player, null);
         PlayerView playerView = view.findViewById(R.id.playerView);
-        layer.addView(layer);
+        layer.addView(view);
 
         DefaultBandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
         DataSource.Factory factory = new DefaultDataSourceFactory(context, Util.getUserAgent(context, context.getPackageName()), bandwidthMeter);
