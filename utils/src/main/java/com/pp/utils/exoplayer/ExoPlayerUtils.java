@@ -111,16 +111,18 @@ public class ExoPlayerUtils {
             exoPlayer = ExoPlayerFactory.newSimpleInstance(context, trackSelector);
             exoPlayer.addListener(eventListener);
         }
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_player, null);
+        PlayerView playerView = view.findViewById(R.id.playerView);
+        layer.addView(layer);
+
         DefaultBandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
         DataSource.Factory factory = new DefaultDataSourceFactory(context, Util.getUserAgent(context, context.getPackageName()), bandwidthMeter);
         Uri uri = Uri.parse(url);
         MediaSource source = new ExtractorMediaSource.Factory(factory).createMediaSource(uri);
         exoPlayer.prepare(source);
 
-        View view = LayoutInflater.from(context).inflate(R.layout.layout_player, null);
-        PlayerView playerView = view.findViewById(R.id.playerView);
         playerView.setPlayer(exoPlayer);
-        layer.addView(playerView);
+
     }
 
 }
