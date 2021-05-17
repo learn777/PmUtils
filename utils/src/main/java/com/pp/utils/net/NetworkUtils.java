@@ -11,6 +11,7 @@ import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -20,7 +21,13 @@ import java.util.Collections;
 import java.util.Objects;
 
 public class NetworkUtils {
-
+    /**
+     * 获取网络类型
+     *
+     * @param context
+     * @return {@link ConnectivityManager#TYPE_MOBILE} {@link NetworkCapabilities.TRANSPORT_CELLULAR},
+     * {@link ConnectivityManager#TYPE_WIFI} {@link NetworkCapabilities.TRANSPORT_WIFI}
+     */
     public static int getType(@NonNull Context context) {
         ConnectivityManager conMann = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (conMann != null) {
@@ -52,7 +59,14 @@ public class NetworkUtils {
         return -1;
     }
 
-    public static String getIP(@NonNull Context context) {
+    /**
+     * 获取IP地址
+     *
+     * @param context
+     * @return
+     */
+    public static @Nullable
+    String getIP(@NonNull Context context) {
         switch (getType(context)) {
             case ConnectivityManager.TYPE_MOBILE:
                 return getLocalIpAddress();
@@ -66,7 +80,11 @@ public class NetworkUtils {
         }
     }
 
-    //    如果连接的是移动网络，第二步，获取本地ip地址：getLocalIpAddress();这样获取的是ipv4格式的ip地址。
+    /**
+     * 如果连接的是移动网络，第二步，获取本地ip地址：getLocalIpAddress();这样获取的是ipv4格式的ip地址
+     *
+     * @return
+     */
     public static String getLocalIpAddress() {
         try {
             String ipv4;
@@ -80,7 +98,6 @@ public class NetworkUtils {
                 }
 
             }
-
         } catch (SocketException ex) {
             Log.e("localIp", ex.toString());
         }
@@ -91,7 +108,11 @@ public class NetworkUtils {
         return ip.contains(".");
     }
 
-    //    如果连接的是WI-FI网络，第三步，获取WI-FI ip地址：intToIp(ipAddress);
+    /**
+     * 如果连接的是WI-FI网络，第三步，获取WI-FI ip地址：intToIp(ipAddress);
+     * @param ipInt
+     * @return
+     */
     public static String intToIp(int ipInt) {
         StringBuilder sb = new StringBuilder();
         sb.append(ipInt & 0xFF).append(".");
